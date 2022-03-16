@@ -6,4 +6,11 @@ def TestVocabAdd():
     vocabFile = VocabFile()
     vocabFile.AddVocab(vocab)
 
-TestVocabAdd()
+def TestGetVocab():
+    file = VocabFile()
+    vocab = file.GetVocab("Test 1")
+    return
+
+#TestVocabAdd()
+TestGetVocab()
+

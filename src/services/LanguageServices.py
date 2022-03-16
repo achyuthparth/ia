@@ -8,30 +8,6 @@ from os import path
 
 class VocabAlreadyExists(Exception): pass
 
-class VocabEncoder(json.JSONEncoder):
-    def default(self, o):
-        return o.__dict__
-
-class VocabDecoder(json.JSONDecoder):
-    def __init__(self):
-        json.JSONDecoder.__init__(self, object_hook=self.toObject)
-
-    def toObject(self, d):
-        if '__class__' in d:
-            class_name = d.pop('__class__')
-            module_name = d.pop('__module__')
-            module = __import__(module_name)
-            class_ = getattr(module, class_name)
-            args = {
-            key: value
-            for key, value in d.items()
-            }
-            inst = class_(**args)
-        else:
-            inst = d
-        
-        return inst            
-
 class Vocab:
     '''
     The Vocab object contains info about all the words
@@ -46,6 +22,17 @@ class Vocab:
         self.VocabId = vocabId
         self.WordList = wordList
         return
+
+class VocabEncoder(json.JSONEncoder):
+    def default(self, o):
+        return o.__dict__
+
+class VocabDecoder(json.JSONDecoder):
+    def __init__(self):
+        json.JSONDecoder.__init__(self, object_hook=self.toObject)
+
+    def toObject(self, d):
+        return Vocab(d["VocabId"], d["WordList"])
 
 class VocabFile:
     def __init__(self, fileName = "D:\\Users\\achyu\\Source\\repos\\ia\\src\\VocabList.json"):
@@ -67,21 +54,23 @@ class VocabFile:
             json.dump(vocabList, outfile, cls=VocabEncoder)
         return
 
-    def GetVocab(vocabId):
+    def GetVocab(self, vocabId):
         vocabList = self.ReadFile()
         # find matching vocab
-
-        vocab = "blah"
-        return vocab
+        for v in vocabList:
+            if v.VocabId == vocabId:
+                return v
+        return None
 
     def AddVocab(self, vocab):
         # read all vocab from file
         vocabList = self.ReadFile()
+        
         # check if vocab already exists
-        for v in vocabList:
-            if v.VocabId == vocab.VocabId:
-                raise VocabAlreadyExists()
-
+        v = self.GetVocab(vocab.VocabId)
+        if not v is None:
+            raise VocabAlreadyExists()
+        
         # append
         vocabList.append(vocab)
         print(vocabList)
