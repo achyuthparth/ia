@@ -50,7 +50,6 @@ class VocabFile:
 
     def WriteFile(self, vocabList):
         with open(self.FileName, "w") as outfile:
-            #question, what is the ^w for? --> read and write 
             json.dump(vocabList, outfile, cls=VocabEncoder)
         return
 

@@ -2,8 +2,10 @@ from LanguageServices import *
 
 
 def TestVocabAdd():
-    vocab = Vocab("Test 1", ["cat", "bat"])
+    vocab = Vocab("Test2", ["rat", "sat"])
     vocabFile = VocabFile()
+    vocabFile.AddVocab(vocab)
+    vocab = Vocab("Test3", ["mat", "lat"])
     vocabFile.AddVocab(vocab)
 
 def TestGetVocab():
@@ -11,6 +13,6 @@ def TestGetVocab():
     vocab = file.GetVocab("Test 1")
     return
 
-#TestVocabAdd()
+TestVocabAdd()
 TestGetVocab()
 

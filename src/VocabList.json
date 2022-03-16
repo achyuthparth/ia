@@ -1,1 +1,23 @@
-[{"VocabId": "Test 1", "WordList": ["cat", "bat"]}]
+[
+  {
+    "VocabId": "Test 1",
+    "WordList": [
+      "cat",
+      "bat"
+    ]
+  },
+  {
+    "VocabId": "Test2",
+    "WordList": [
+      "rat",
+      "sat"
+    ]
+  },
+  {
+    "VocabId": "Test3",
+    "WordList": [
+      "mat",
+      "lat"
+    ]
+  }
+]
