@@ -76,7 +76,3 @@ class VocabFile:
         # write
         self.WriteFile(vocabList)
         return
-
-
-    def VocabTransEnEs(srcLang, destLang, wordList):
-    for each in wordList:
