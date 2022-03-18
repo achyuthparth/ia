@@ -1,1 +1,8 @@
-{"cat": "gato", "apple": "manzana", "dog": "perro", "winter": "invierno"}
+{
+  "cat": "gato",
+  "apple": "manzana",
+  "dog": "perro",
+  "winter": "invierno",
+  "dogs": "perros",
+  "cats": "gatos"
+}

@@ -7,6 +7,8 @@ def TestTranslator():
 		"apple",
 		"dog",
 		"winter",
+		"dogs",
+		"cats",
 		]
 	ts.Translate(wordList)
 
