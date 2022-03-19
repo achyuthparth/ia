@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\services"
+    "\\src\\services",
+    "\\src\\UI"
   ],
-  "SelectedNode": "\\src\\services\\TranslatorServices.py",
+  "SelectedNode": "\\src\\UI\\ui.py",
   "PreviewInSolutionExplorer": false
 }
