@@ -1,8 +1,29 @@
 from tkinter import *
 
-practiceButton = Button(root, text="Practice", command=myClick)
+root = Tk()
 
-enteringButton = Button(root, text = "Enter New Set", command = myClick)
+practiceButton = Button(
+    root, 
+    text="Practice", 
+    command = #to practice sets screen
+    )
 
-progressButton = Button(root, text = "View Progress Report", command = myClick)
+enteringButton = Button(
+    root, 
+    text = "Enter New Set", 
+    command = #to enter wordlist screen
+    )
 
+progressButton = Button(
+    root, 
+    text = "View Progress Report", 
+    command = #to progress report screen
+    )
+
+
+
+
+
+
+
+root.mainloop() 
