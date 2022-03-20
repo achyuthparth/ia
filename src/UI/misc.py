@@ -1,4 +1,8 @@
-from tkinter import *
+
+
+class PracticeFrame(Frame):
+    def
+
 
 def myClick():
     myLabel = Label(root,
@@ -10,43 +14,43 @@ def myClick():
 root = Tk()
 #root.title = "This is root's title"
 
-startFrame = LabelFrame(
-    root,
-    text = "Welcome",
-    #padx = 1920,
-    #pady = 1080
-    )
+#startFrame = LabelFrame(
+#    root,
+#    text = "Welcome",
+#    #padx = 1920,
+#    #pady = 1080
+#    )
 
-#startFrame = root
+##startFrame = root
 
-#defining buttons
-practiceButton = Button(
-    startFrame, 
-    text = "Practice", 
-    command = myClick
-    #to practice sets screen
-    )
+##defining buttons
+#practiceButton = Button(
+#    startFrame, 
+#    text = "Practice", 
+#    command = myClick
+#    #to practice sets screen
+#    )
 
-enteringButton = Button(
-    startFrame, 
-    text = "Enter New Set", 
-    command = myClick
-    #to enter wordlist screen
-    )
+#enteringButton = Button(
+#    startFrame, 
+#    text = "Enter New Set", 
+#    command = myClick
+#    #to enter wordlist screen
+#    )
 
-progressButton = Button(
-    startFrame, 
-    text = "View Progress Report", 
-    command = myClick
-    #to progress report screen
-    )
+#progressButton = Button(
+#    startFrame, 
+#    text = "View Progress Report", 
+#    command = myClick
+#    #to progress report screen
+#    )
 
-#initialize buttons
+##initialize buttons
 
-startFrame.pack()
-practiceButton.pack()
-enteringButton.pack()
-progressButton.pack()
+#startFrame.pack()
+#practiceButton.pack()
+#enteringButton.pack()
+#progressButton.pack()
 
 
 practiceFrame = LabelFrame(
@@ -129,5 +133,3 @@ submitEntry = Button(
     )
 
 
-
-root.mainloop()

@@ -77,3 +77,12 @@ class VocabFile:
         # write
         self.WriteFile(vocabList)
         return
+
+    def GetVocabIds(self):
+        # read all vocab from file
+        vocabList = self.ReadFile()
+        list = []
+        for v in vocabList:
+            list.append(v.VocabId)
+        
+        return list
