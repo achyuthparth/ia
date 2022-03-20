@@ -19,5 +19,14 @@
       "mat",
       "lat"
     ]
+  },
+  {
+    "VocabId": "Id_1",
+    "WordList": [
+      "cats",
+      "dogs",
+      "cat",
+      "dog"
+    ]
   }
 ]

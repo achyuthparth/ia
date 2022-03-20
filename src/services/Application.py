@@ -31,13 +31,18 @@ class Application(Tk):
 
         self.ShowFrame(StartupFrame)
 
+        goHomeButton = Button(self,
+            text = "Go Home",
+            command = lambda: self.ShowFrame(StartupFrame))
+
+        goHomeButton.pack()
+
     def ShowFrame(self, frameTypeToShow):
         frame = self.Frames[frameTypeToShow]
         frame.tkraise()
 
     
- 
-
+  
 
 class StartupFrame(Frame):
     def __init__(self, parent, application):
@@ -89,7 +94,6 @@ class PracticeFrame(Frame):
     #insert the wordlists here
     #)
 
-
     #setDrop.pack()
 class EnterWordlistFrame(Frame):
     def __init__(self, parent, application):
@@ -97,38 +101,34 @@ class EnterWordlistFrame(Frame):
         self.Application = application
         enterFrame = LabelFrame(self, text = "Enter a new word list")
 
+        self.enterVocabID = Entry(enterFrame, width = 50)
+        self.enterVocabID.insert(0, "Id_")
 
-        
-        enterVocabID = Entry(enterFrame,
-            width = 50)
-        enterVocabID.insert(0, "Enter Vocab ID")
-
-        enterVocab = Text(enterFrame,
+        self.enterVocab = Text(enterFrame,
+                    height = 15,
                     width = 50)
-        enterVocab.insert(0, "Enter Vocab, eg: cat, dog, etc...")
-
-        vocab = [enterVocabID.get(), enterVocab.get()]
-
+        
         submitWord = Button(enterFrame,
-        text = "Submit",
-        #command = LS.VocabFile.AddVocab(vocab)
-        #command = enterWord.get()
-        )
+            text = "Submit",
+            command = self.OnSubmit)
 
-
-        #fix drop down
-
-        #vLister = Label(enterFrame,
-        #    text = enterWord.get())
-
-
-        
         enterFrame.pack()   
-        enterVocabID.pack()
-        
-        #vLister.pack()
-        enterVocab.pack()
+        self.enterVocabID.pack()
+        self.enterVocab.pack()
         submitWord.pack()
+
+    def OnSubmit(self):
+        vocabId = self.enterVocabID.get()
+        wordsFull = self.enterVocab.get('1.0', 'end')
+        print(vocabId + " : " + wordsFull)
+
+        wordList = list(filter(None, wordsFull.split("\n")))
+        vocab = LS.Vocab(vocabId, wordList)
+        vocabFile = LS.VocabFile()
+        # TODO: error handling, what if vocab already exists?
+        vocabFile.AddVocab(vocab)
+
+        # TODO: add confirmation message
 
 
 class GameFrame(Frame):
@@ -147,8 +147,6 @@ class GameFrame(Frame):
 
         vocabWord = Label(gameFrame,
             text = "vocab comes here")
-
-
 
         gameFrame.pack()
         fillBlank.pack()
