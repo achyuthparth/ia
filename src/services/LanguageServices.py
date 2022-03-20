@@ -5,6 +5,7 @@ __author__      = "Achyuthaa Parthasarathy"
 
 import json
 from os import path
+import FileServices as FS
 
 class VocabAlreadyExists(Exception): pass
 
@@ -35,8 +36,8 @@ class VocabDecoder(json.JSONDecoder):
         return Vocab(d["VocabId"], d["WordList"])
 
 class VocabFile:
-    def __init__(self, fileName = "D:\\Users\\achyu\\Source\\repos\\ia\\src\\VocabList.json"):
-        self.FileName = fileName
+    def __init__(self, fileName = "VocabList.json"):
+        self.FileName = FS.CreateFilePath(fileName)
 
     def ReadFile(self):
         fileExists = path.exists(self.FileName)

@@ -5,7 +5,7 @@ __author__ = "Achyuthaa Parthasarathy"
 import json
 from os import path
 import datetime as dateTime
-
+import FileServices as FS
 
 class Activity:
 
@@ -38,8 +38,8 @@ class ActivityDecoder(json.JSONDecoder):
             dict["NumWrong"])
 
 class ActivityFile:
-    def __init__(self, fileName="D:\\Users\\achyu\\Source\\repos\\ia\\src\\ActivityList.json"):
-        self.FileName = fileName
+    def __init__(self, fileName="ActivityList.json"):
+        self.FileName = FS.CreateFilePath(fileName)
 
     def ReadFile(self):
         fileExists = path.exists(self.FileName)

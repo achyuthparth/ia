@@ -1,11 +1,13 @@
 import json
 from os import path
 from googletrans import Translator
+import FileServices as FS
+
 
 class TranslateService:
 
-    def __init__(self, fileName="D:\\Users\\achyu\\Source\\repos\\ia\\src\\Dictionary-en-es.json"):
-        self.FileName = fileName
+    def __init__(self, fileName="Dictionary-en-es.json"):
+        self.FileName = FS.CreateFilePath(fileName)
         self.Dictionary = self.ReadFile()
 
     def ReadFile(self):
