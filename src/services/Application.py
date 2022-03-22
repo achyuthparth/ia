@@ -11,8 +11,6 @@ def myClick():
     myLabel.pack
 
 
-
-
 class Application(Tk):
 
     def __init__(self, *args, **kwargs):  
@@ -23,6 +21,7 @@ class Application(Tk):
             fill = 'both', 
             expand = True)
 
+        self.SelectedVocabId = None
         self.Frames = {}
         for F in (StartupFrame, PracticeFrame, EnterWordlistFrame, GameFrame):
             frame = F(container, self)
@@ -36,14 +35,13 @@ class Application(Tk):
             command = lambda: self.ShowFrame(StartupFrame))
 
         goHomeButton.pack()
-
+    
     def ShowFrame(self, frameTypeToShow):
         frame = self.Frames[frameTypeToShow]
+        frame.Reset()
         frame.tkraise()
 
-    
-  
-
+ 
 class StartupFrame(Frame):
     def __init__(self, parent, application):
         self.Application = application
@@ -62,7 +60,7 @@ class StartupFrame(Frame):
             command = lambda: application.ShowFrame(EnterWordlistFrame)
             #to enter wordlist screen
             )
-
+        
         progressButton = Button(startFrame, 
             text = "View Progress Report", 
             command = lambda: application.ShowFrame(PracticeFrame)
@@ -74,27 +72,48 @@ class StartupFrame(Frame):
         enteringButton.pack()
         progressButton.pack()
 
+    def Reset(self):
+        print("in Startupframe reset function")
+        return
+
 class PracticeFrame(Frame):
     def __init__(self, parent, application):
         Frame.__init__(self, parent)
         self.Application = application
-        uberLabelFrame = LabelFrame(self, text = "Practice Vocabulary")
+        self.Selection = StringVar()
+        self.dropVocabIds = None
+        self.uberLabelFrame = LabelFrame(self, text = "Practice Vocabulary")
+        self.uberLabelFrame.pack()
 
-        gameButton = Button(uberLabelFrame,
+        gameButton = Button(self.uberLabelFrame,
             text = "Start Practice",
-            command = lambda: application.ShowFrame(GameFrame),)
-
-        uberLabelFrame.pack()
+            command = self.OnSelection)
         gameButton.pack()
 
+    def PopulateDropDown(self):
+        if not self.dropVocabIds is None:
+            self.dropVocabIds.destroy()
+            self.dropVocabIds = None
 
-        #setDrop = OptionMenu(
-    # uberLabelFrame,
-    #clicked,
-    #insert the wordlists here
-    #)
+        vocabList = LS.VocabFile().GetVocabIds()
+        if len(vocabList) > 0:
+            self.Selection.set(vocabList[0])
 
-    #setDrop.pack()
+        self.dropVocabIds = OptionMenu(self.uberLabelFrame,
+            self.Selection,
+            *vocabList)
+        self.dropVocabIds.pack()
+        
+    def OnSelection(self):
+        self.Application.SelectedVocabId = self.Selection.get()
+        self.Application.ShowFrame(GameFrame)
+
+    def Reset(self):
+        print("in PracticeFrame reset function")
+        self.PopulateDropDown()
+        return
+
+
 class EnterWordlistFrame(Frame):
     def __init__(self, parent, application):
         Frame.__init__(self, parent)
@@ -129,7 +148,10 @@ class EnterWordlistFrame(Frame):
         vocabFile.AddVocab(vocab)
 
         # TODO: add confirmation message
-
+        
+    def Reset(self):
+        print("in EnterWordlistFrame reset function")
+        return
 
 class GameFrame(Frame):
     def __init__(self, parent, application):
@@ -148,11 +170,23 @@ class GameFrame(Frame):
         vocabWord = Label(gameFrame,
             text = "vocab comes here")
 
+        nextWordButton = Button(gameFrame,
+                          text = "Next Word",
+                          command = self.nextWord)
+
+
         gameFrame.pack()
         fillBlank.pack()
         vocabWord.pack()
         submitWord.pack()
+    
+    def nextWord(self):
+        return
 
+    def Reset(self):
+        # TODO: read selected vocab id and use the word list from it
+        print("in GameFrame reset function")
+        return
 
 
 root = Application()
