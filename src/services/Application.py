@@ -22,6 +22,8 @@ class Application(Tk):
             expand = True)
 
         self.SelectedVocabId = None
+
+
         self.Frames = {}
         for F in (StartupFrame, PracticeFrame, EnterWordlistFrame, GameFrame):
             frame = F(container, self)
@@ -158,34 +160,78 @@ class GameFrame(Frame):
         self.Application = application
         Frame.__init__(self, parent)
         gameFrame = LabelFrame(self, text = "Practice Vocab")
+        self.dictionary = TS.TranslateService().GetDictionary()
 
-        submitWord = Button(gameFrame,
-        text = "Submit",
-        command = lambda: fillBlank.get())
-        
-        fillBlank = Entry(gameFrame,
-            width = 30,
-            text = "cual palabra?")
+        self.vocab = None
 
-        vocabWord = Label(gameFrame,
-            text = "vocab comes here")
+        self.vocabWordLabel = Label(gameFrame,
+            text = "<none>")
 
-        nextWordButton = Button(gameFrame,
-                          text = "Next Word",
-                          command = self.nextWord)
+        self.correctAnswerLabel = Label(gameFrame,
+            text = "<none>")
+
+        self.checkWordButton = Button(gameFrame,
+            text  = "Check",
+            command = lambda: self.checkWord)
+
+        self.nextWordButton = Button(gameFrame,
+            text = "Next",
+            command = lambda: self.nextWord)
+
+        self.inputAnswer = Entry(gameFrame,
+            width = 30,)
 
 
         gameFrame.pack()
-        fillBlank.pack()
-        vocabWord.pack()
-        submitWord.pack()
-    
+        self.vocabWordLabel.pack()
+        self.inputAnswer.pack()
+        self.correctAnswerLabel.pack()
+        self.checkWordButton.pack()
+        self.nextWordButton.pack()
+
+
+    def ShowWord():
+
+        #remove current words
+        self.vocabWordLabel.pack_forget()
+        self.correctAnswerLabel.pack_forget()
+
+        # update widget values
+        word = self.vocab.WordList[self.i]
+        translatedWord = self.dictionary[word]
+        self.vocabWordLabel.set(word)
+        self.correctAnswerLabel.set(translatedWord)
+        # show or hide the widgets
+
+        self.vocabWordLabel.pack()
+        return
+
+    def checkWord():
+        word = self.vocab.WordList[self.i]
+        self.correctAnswer = self.dictionary[word]
+
+        self.correctAnswerLabel.pack()
+        return
+
     def nextWord(self):
+        self.i += 1
+        # todo: fix this
+        countLength = 0
+        if self.i > countLength:
+            self.nextWordButton.pack_forget()
+            return
+
+        ShowWord()
         return
 
     def Reset(self):
-        # TODO: read selected vocab id and use the word list from it
         print("in GameFrame reset function")
+        # read selected vocab id and use the word list from it
+        self.vocab = LS.VocabFile().GetVocab(self.Application.SelectedVocabId)
+        self.i = 0
+        self.correctCount = 0
+        self.wrongCount = 0
+        ShowWord()
         return
 
 
