@@ -144,6 +144,7 @@ class EnterWordlistFrame(Frame):
         print(vocabId + " : " + wordsFull)
 
         wordList = list(filter(None, wordsFull.split("\n")))
+        TS.TranslateService().Translate(wordList)
         vocab = LS.Vocab(vocabId, wordList)
         vocabFile = LS.VocabFile()
         # TODO: error handling, what if vocab already exists?
