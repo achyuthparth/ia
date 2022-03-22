@@ -1,14 +1,1 @@
-[
-  {
-    "VocabId": "test1",
-    "DateTime": "2022-03-15 22:54:00",
-    "NumCorrect": 4,
-    "NumWrong": 5
-  },
-  {
-    "VocabId": "Test2",
-    "DateTime": "2022-03-15 23:01:00",
-    "NumCorrect": 5,
-    "NumWrong": 4
-  }
-]
+[{"VocabId": "test1", "DateTime": "2022-03-15 22:54:00", "NumCorrect": 4, "NumWrong": 5}, {"VocabId": "Test2", "DateTime": "2022-03-15 23:01:00", "NumCorrect": 5, "NumWrong": 4}, {"VocabId": "Test2", "DateTime": "2022-03-21 23:36:00.058588", "NumCorrect": 1, "NumWrong": 1}, {"VocabId": "Test2", "DateTime": "2022-03-21 23:36:39.047134", "NumCorrect": 1, "NumWrong": 1}]

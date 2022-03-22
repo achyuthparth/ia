@@ -1,3 +1,4 @@
+from datetime import datetime
 from tkinter import *
 import LanguageServices as LS
 import ActivityServices as AS
@@ -152,6 +153,9 @@ class EnterWordlistFrame(Frame):
 
         # TODO: add confirmation message
         
+
+        #go back to starting frame
+        application.ShowFrame(StartupFrame)
     def Reset(self):
         print("in EnterWordlistFrame reset function")
         return
@@ -166,6 +170,10 @@ class GameFrame(Frame):
         self.correctAnswerVar = StringVar()
         self.vocabWordVar = StringVar()
         self.vocab = None
+
+        self.doneButton = Button(gameFrame,
+            text = "Done",
+            command = self.OnDone)
 
         self.vocabWordLabel = Label(gameFrame,
             textvariable = self.vocabWordVar)
@@ -191,6 +199,7 @@ class GameFrame(Frame):
         self.correctAnswerLabel.pack()
         self.checkWordButton.pack()
         self.nextWordButton.pack()
+        self.doneButton.pack()
 
 
     def ShowWord(self):
@@ -210,12 +219,18 @@ class GameFrame(Frame):
         countLength = len(self.vocab.WordList)
         if self.i >= countLength-1:
             self.nextWordButton.pack_forget()
-            #show done here
-            return
+            
         return
 
     def OnDone(self):
         # save activity score
+        activity = AS.Activity(
+            self.Application.SelectedVocabId,
+            datetime.now(),
+            self.correctCount,
+            self.wrongCount)
+        AS.ActivityFile().AddActivity(activity)
+        #self.Application.ShowFrame(ProgressFrame)
         return
 
     def checkWord(self):
@@ -245,6 +260,10 @@ class GameFrame(Frame):
         self.vocabWordVar.set("")
         self.ShowWord()
         return
+
+
+
+#class ProgressFrame(Frame):
 
 
 root = Application()
