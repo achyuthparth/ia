@@ -162,7 +162,6 @@ class GameFrame(Frame):
         Frame.__init__(self, parent)
         gameFrame = LabelFrame(self, text = "Practice Vocab")
 
-
         self.dictionary = TS.TranslateService().GetDictionary()
         self.correctAnswerVar = StringVar()
         self.vocabWordVar = StringVar()
@@ -176,11 +175,11 @@ class GameFrame(Frame):
 
         self.checkWordButton = Button(gameFrame,
             text  = "Check",
-            command = lambda: self.checkWord)
+            command = self.checkWord)
 
         self.nextWordButton = Button(gameFrame,
             text = "Next",
-            command = lambda: self.nextWord)
+            command = self.nextWord)
 
         self.inputAnswer = Entry(gameFrame,
             width = 30,)
@@ -208,10 +207,18 @@ class GameFrame(Frame):
         # show or hide the widgets
 
         self.vocabWordLabel.pack()
+        countLength = len(self.vocab.WordList)
+        if self.i >= countLength-1:
+            self.nextWordButton.pack_forget()
+            #show done here
+            return
+        return
+
+    def OnDone(self):
+        # save activity score
         return
 
     def checkWord(self):
-        self.ShowWord
         word = self.vocab.WordList[self.i]
         self.correctAnswer = self.dictionary[word]
         if self.correctAnswer == self.inputAnswer.get():
@@ -224,12 +231,6 @@ class GameFrame(Frame):
 
     def nextWord(self):
         self.i += 1
-        # todo: fix this
-        countLength = len(self.vocab.wordList)
-        if self.i > countLength:
-            self.nextWordButton.pack_forget()
-            return
-
         self.ShowWord()
         return
 
@@ -240,6 +241,8 @@ class GameFrame(Frame):
         self.i = 0
         self.correctCount = 0
         self.wrongCount = 0
+        self.correctAnswerVar.set("")
+        self.vocabWordVar.set("")
         self.ShowWord()
         return
 

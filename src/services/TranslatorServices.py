@@ -38,6 +38,5 @@ class TranslateService:
         return self.Dictionary
 
     def WriteFile(self):
-        with open(self.FileName, 'w') as outFile:
-            json.dump(self.Dictionary, outFile)
-
+        with open(self.FileName, "w", encoding='utf8') as outFile:
+            json.dump(self.Dictionary, outFile, ensure_ascii=False)

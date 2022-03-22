@@ -1,1 +1,50 @@
-[{"VocabId": "Test 1", "WordList": ["cat", "bat"]}, {"VocabId": "Test2", "WordList": ["rat", "sat"]}, {"VocabId": "Test3", "WordList": ["mat", "lat"]}, {"VocabId": "Id_1", "WordList": ["cats", "dogs", "cat", "dog"]}, {"VocabId": "Id_2", "WordList": ["rat", "lat", "mat", "sat"]}, {"VocabId": "Id_3", "WordList": ["mat", "rat", "lat", "sat"]}]
+[
+  {
+    "VocabId": "Test2",
+    "WordList": [
+      "rat",
+      "sat"
+    ]
+  },
+  {
+    "VocabId": "Test3",
+    "WordList": [
+      "mat",
+      "lat"
+    ]
+  },
+  {
+    "VocabId": "Id_1",
+    "WordList": [
+      "cats",
+      "dogs",
+      "cat",
+      "dog"
+    ]
+  },
+  {
+    "VocabId": "Id_2",
+    "WordList": [
+      "rat",
+      "lat",
+      "mat",
+      "sat"
+    ]
+  },
+  {
+    "VocabId": "Id_3",
+    "WordList": [
+      "mat",
+      "rat",
+      "lat",
+      "sat"
+    ]
+  },
+  {
+    "VocabId": "Id_unicode",
+    "WordList": [
+      "sat",
+      "wed"
+    ]
+  }
+]
