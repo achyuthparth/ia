@@ -21,7 +21,7 @@ def TestActivityAdd():
 def TestGetActivity():
     file = ActivityFile()
     activities = file.ReadFile()
-    return
+    print(activities)
 
 #TestActivityAdd()
 TestGetActivity()

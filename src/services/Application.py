@@ -1,5 +1,6 @@
 from datetime import datetime
 from tkinter import *
+from tkinter import ttk
 import LanguageServices as LS
 import ActivityServices as AS
 import TranslatorServices as TS
@@ -26,7 +27,7 @@ class Application(Tk):
 
 
         self.Frames = {}
-        for F in (StartupFrame, PracticeFrame, EnterWordlistFrame, GameFrame):
+        for F in (StartupFrame, PracticeFrame, EnterWordlistFrame, GameFrame, ProgressFrame):
             frame = F(container, self)
             self.Frames[F] = frame
             frame.grid(row = 0, column = 0, sticky = "nsew") 
@@ -66,7 +67,7 @@ class StartupFrame(Frame):
         
         progressButton = Button(startFrame, 
             text = "View Progress Report", 
-            command = lambda: application.ShowFrame(PracticeFrame)
+            command = lambda: application.ShowFrame(ProgressFrame)
             #to progress report screen
             )
 
@@ -230,7 +231,7 @@ class GameFrame(Frame):
             self.correctCount,
             self.wrongCount)
         AS.ActivityFile().AddActivity(activity)
-        #self.Application.ShowFrame(ProgressFrame)
+        sself.Application.ShowFrame(ProgressFrame)
         return
 
     def checkWord(self):
@@ -263,10 +264,54 @@ class GameFrame(Frame):
 
 
 
-#class ProgressFrame(Frame):
+class ProgressFrame(Frame):
+    def __init__(self, parent, application):
+        self.Application = application
+        Frame.__init__(self, parent)
+        progressFrame = LabelFrame(self, text = "Activity Report")
 
+        self.activityGrid = None
+
+
+    def Reset(self):
+        if not self.activityGrid is None:
+            self.activityGrid.destroy()
+            self.activityGrid = None
+            
+        self.activityGrid = ttk.Treeview(self)
+        self.activityGrid['columns'] = ('Vocab List', 'Date and Time', 'Correct Responses', 'Incorrect Responses')
+        self.activityGrid.column("#0", width = 0,
+                                 stretch = NO)
+        self.activityGrid.column("Vocab List", anchor=CENTER)
+        self.activityGrid.column("Date and Time", anchor = CENTER)
+        self.activityGrid.column("Correct Responses", anchor = CENTER)
+        self.activityGrid.column("Incorrect Responses", anchor = CENTER)
+
+        self.activityGrid.heading("#0", text = "", anchor = CENTER)
+        self.activityGrid.heading("Vocab List", text = "Vocab List", anchor = CENTER)
+        self.activityGrid.heading("Date and Time", text = "Date and Time", anchor = CENTER)
+        self.activityGrid.heading("Correct Responses", text = "Correct Responses", anchor = CENTER)
+        self.activityGrid.heading("Incorrect Responses", text = "Incorrect Responses", anchor = CENTER)
+
+        activityList = AS.ActivityFile().ReadFile()
+        j = 0
+        for a in activityList:
+            self.activityGrid.insert(parent='',
+                index='end',
+                iid=j,text='',
+                values = (a.VocabId, 
+                          a.DateTime.__str__(), 
+                          a.NumCorrect, 
+                          a.NumWrong))
+            j += 1
+        self.activityGrid.pack()
 
 root = Application()
 
 root.mainloop()
 
+
+# TODO: Progress report frame
+# TODO: Wire progress report frame up to Game Frame and Start Frame
+# TODO: Class diagrams
+# TODO: Ordering of widgets in GameFrame

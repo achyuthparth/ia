@@ -2,9 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\gaming services",
-    "\\src\\services",
-    "\\src\\UI"
+    "\\src\\services"
   ],
   "SelectedNode": "\\src\\services\\Application.py",
   "PreviewInSolutionExplorer": false

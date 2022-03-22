@@ -45,11 +45,11 @@ class ActivityFile:
         fileExists = path.exists(self.FileName)
         if fileExists:
             with open(self.FileName, 'r') as infile:
-                json_object = json.load(infile, cls=ActivityDecoder)
+                activities = json.load(infile, cls=ActivityDecoder)
         else:
-            json_object = []
+            activities = []
 
-        return json_object
+        return activities
 
     def WriteFile(self, activityList):
         with open(self.FileName, "w") as outfile:
