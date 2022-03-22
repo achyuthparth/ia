@@ -160,15 +160,18 @@ class GameFrame(Frame):
         self.Application = application
         Frame.__init__(self, parent)
         gameFrame = LabelFrame(self, text = "Practice Vocab")
-        self.dictionary = TS.TranslateService().GetDictionary()
 
+
+        self.dictionary = TS.TranslateService().GetDictionary()
+        self.correctAnswerVar = StringVar()
+        self.vocabWordVar = StringVar()
         self.vocab = None
 
         self.vocabWordLabel = Label(gameFrame,
-            text = "<none>")
+            textvariable = self.vocabWordVar)
 
         self.correctAnswerLabel = Label(gameFrame,
-            text = "<none>")
+            textvariable = self.correctAnswerVar)
 
         self.checkWordButton = Button(gameFrame,
             text  = "Check",
@@ -190,7 +193,7 @@ class GameFrame(Frame):
         self.nextWordButton.pack()
 
 
-    def ShowWord():
+    def ShowWord(self):
 
         #remove current words
         self.vocabWordLabel.pack_forget()
@@ -199,16 +202,21 @@ class GameFrame(Frame):
         # update widget values
         word = self.vocab.WordList[self.i]
         translatedWord = self.dictionary[word]
-        self.vocabWordLabel.set(word)
-        self.correctAnswerLabel.set(translatedWord)
+        self.vocabWordVar.set(word)
+        self.correctAnswerVar.set(translatedWord)
         # show or hide the widgets
 
         self.vocabWordLabel.pack()
         return
 
-    def checkWord():
+    def checkWord(self):
+        self.ShowWord
         word = self.vocab.WordList[self.i]
         self.correctAnswer = self.dictionary[word]
+        if self.correctAnswer == self.inputAnswer.get():
+            self.correctCount += 1
+        else:
+            self.wrongCount += 1
 
         self.correctAnswerLabel.pack()
         return
@@ -216,12 +224,12 @@ class GameFrame(Frame):
     def nextWord(self):
         self.i += 1
         # todo: fix this
-        countLength = 0
+        countLength = len(self.vocab.wordList)
         if self.i > countLength:
             self.nextWordButton.pack_forget()
             return
 
-        ShowWord()
+        self.ShowWord()
         return
 
     def Reset(self):
@@ -231,7 +239,7 @@ class GameFrame(Frame):
         self.i = 0
         self.correctCount = 0
         self.wrongCount = 0
-        ShowWord()
+        self.ShowWord()
         return
 
 
